@@ -1,5 +1,6 @@
 import { BsPlus, BsGlobe, BsGearFill } from 'react-icons/bs';
 import { FaFire } from 'react-icons/fa';
+import { useState } from 'react';
 // import { Link } from 'next/link'
 
 const ServerSidebar = ({ onServerClick }) => {
@@ -34,13 +35,18 @@ const ServerSidebar = ({ onServerClick }) => {
 };
 
 const ServerSidebarIcon = ({ icon, text, onClick }) => {
+  const [isSelected, setIsSelected] = useState(false);
+
+  const handleIconClick = () => {
+    setIsSelected(!isSelected);
+    onClick();
+  };
+
   return (
-    <div className="sidebar-icon group" onClick={onClick}>
-      <span className="sidebar-icon-pill"></span>
+    <div className="sidebar-icon group" onClick={handleIconClick}>
+      <span className={`sidebar-icon-pill ${isSelected ? 'h-10' : 'h-2'}`}></span>
       {icon}
-      <span className="sidebar-tooltip group-hover:scale-100">
-        {text}
-      </span>
+      <span className="sidebar-tooltip group-hover:scale-100">{text}</span>
     </div>
   );
 }
